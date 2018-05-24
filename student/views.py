@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-rom .models import Student
+from .models import Student
 
 # Create your views here.
 
