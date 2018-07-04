@@ -19,6 +19,23 @@ from django.db.models import Count, Sum, Q, Case, Value, When, IntegerField
 def home(request):
 	return render(request,'base.html')
 
+# Remove students.
+def student_remove(request,pk):
+
+    student = get_object_or_404(Student, pk=pk)
+    if request.method == "POST":
+        if request.POST.get("submit_yes", ""):
+            icnum = student.icnum
+            student.delete()
+            messages.success(request, "Student record with ID: " + str(icnum) + " has been removed! ")
+            return redirect(reverse_lazy('student_home'))
+
+    return render(request, 'student/student_confirm_delete.html', {'student': student, 'pk':pk})
+
+def student_detail(request,pk):
+    student = get_object_or_404(Student, pk=pk)
+    return render(request, 'student/student_detail.html', {'student': student})
+    
 def home_sbadmin(request):
 	return render(request,'student/index.html')
 
